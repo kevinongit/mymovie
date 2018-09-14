@@ -1,7 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Grid, Row, Col} from 'react-bootstrap'
-import {AppBar} from 'material-ui'
+
+
+import {withRouter} from 'react-router-dom'
 
 import * as movieActions from './actions'
 import MovieList from '../../components/MovieList/MovieList'
@@ -13,8 +15,12 @@ class MovieBrowser extends React.Component {
     }
 
     componentDidMount() {
-        console.log('11')
-        this.props.getTopMovies(1); // from actions
+        const currentPage = 1;
+        const {topMovies} = this.props;
+        if (!topMovies || !topMovies.response || (topMovies.response.page < currentPage)) {
+            console.log('11')
+            this.props.getTopMovies(currentPage); // from actions
+        }
     }
 
     render() {
@@ -22,7 +28,7 @@ class MovieBrowser extends React.Component {
         const movies = getMoviesList(topMovies.response);
         return (
             <div>
-                <AppBar title='TMDB' />
+
                 <Grid>
                     <Row>
                         <p>search will go here</p>
@@ -36,9 +42,9 @@ class MovieBrowser extends React.Component {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     (state) => ({
         topMovies: state.movieBrowser.topMovies
     }),
     { ...movieActions }
-)(MovieBrowser);
+)(MovieBrowser));

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Card, CardTitle, CardMedia } from 'material-ui'
+import { Link } from 'react-router-dom'
 
 const styles = {
     cardTitle: {
@@ -33,13 +34,19 @@ class MovieCard extends React.Component {
     render() {
         const { movie } = this.props;
         const subtitle = this.state.isMouseOver ? movie.overview : null;
+        const newTo = {
+            pathname: "/detail",
+            movie : movie,
+        };
 
         return (
+
+            <Link to={newTo}>
             <Card
                 style={styles.card}
                 onMouseOver={() => this.setState({isMouseOver: true})}
                 onMouseLeave={() => this.setState({isMouseOver: false})}
-                onClick={() => console.log('clicked')}
+                // onClick={() => console.log('clicked')}
             >
                 <CardMedia
                     style={styles.cardMedia}
@@ -50,9 +57,12 @@ class MovieCard extends React.Component {
                         />
                     }
                 >
-                    <img style={styles.bgImage} src={movie.poster_path} />
+
+                        <img style={styles.bgImage} src={movie.poster_path} />
+
                 </CardMedia>
             </Card>
+            </Link>
         );
     }
 }

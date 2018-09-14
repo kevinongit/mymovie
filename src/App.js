@@ -7,9 +7,7 @@ import MovieBrowser from './containers/MovieBrowser/MovieBrowser';
 class App extends Component {
   render() {
     return (
-        <MuiThemeProvider>
-            <MovieBrowser />
-        </MuiThemeProvider>
+        <MovieBrowser />
     );
   }
 }
